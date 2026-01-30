@@ -1,10 +1,9 @@
 package com.codingcat.commerce;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.codingcat.commerce.customer.Customer;
-import com.codingcat.commerce.customer.CustomerRepository;
+import com.codingcat.commerce.domain.customer.Customer;
+import com.codingcat.commerce.domain.customer.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

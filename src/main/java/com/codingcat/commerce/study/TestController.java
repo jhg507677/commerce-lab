@@ -1,6 +1,6 @@
-package com.codingcat.commerce;
+package com.codingcat.commerce.study;
 
-import com.codingcat.commerce.customer.Customer;
+import com.codingcat.commerce.domain.customer.Customer;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

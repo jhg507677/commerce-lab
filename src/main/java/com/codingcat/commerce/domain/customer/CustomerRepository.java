@@ -1,7 +1,6 @@
-package com.codingcat.commerce.customer;
+package com.codingcat.commerce.domain.customer;
 
 import java.util.Optional;
-import javax.swing.text.html.Option;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

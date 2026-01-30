@@ -1,4 +1,4 @@
-package com.codingcat.commerce;
+package com.codingcat.commerce.study;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +29,7 @@ public class QuizController {
 
   @PostMapping("quiz")
   public ResponseEntity<String> quiz2(
-    @RequestBody Code code
+    @RequestBody QuizCode code
   ){
     switch (code.value()){
       case 1 :
@@ -39,7 +39,7 @@ public class QuizController {
     }
   }
 
-  record Code(int value){};
+  public record QuizCode(int value){};
 }
 
 /*

@@ -1,4 +1,4 @@
-package com.codingcat.commerce.customer;
+package com.codingcat.commerce.domain.admin;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,15 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Entity
-public class Customer {
+public class Admin {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", updatable = false)
   private Long id;
-
-  @Column(name = "name", nullable = false)
-  private String name;
-
-  @Column(name = "email", nullable = false)
   private String email;
+  private String password;
 }

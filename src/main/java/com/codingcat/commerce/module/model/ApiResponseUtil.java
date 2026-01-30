@@ -1,6 +1,7 @@
 package com.codingcat.commerce.module.model;
 
 import java.nio.charset.StandardCharsets;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -9,22 +10,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class ApiResponseUtil {
-
-  private static final Logger logger = LoggerFactory.getLogger(ApiResponseUtil.class);
-
   public static <T> ResponseEntity<ApiResponseVo<T>> sendApiResponse(ApiResponseVo<T> apiResponseVo) {
-    // Logger 정의
-    Logger logger = LoggerFactory.getLogger(ApiResponseUtil.class);
 
     // 2️⃣ 에러 로깅
     if (apiResponseVo.getStatus().is4xxClientError() || apiResponseVo.getStatus().is5xxServerError()) {
       if (apiResponseVo.getError() != null) {
         apiResponseVo.getError().printStackTrace();
-        logger.error("[{}]", apiResponseVo.getCode(), apiResponseVo.getError());
+        log.error("[{}]", apiResponseVo.getCode(), apiResponseVo.getError());
       } else {
-        logger.error("[{}] {}", apiResponseVo.getCode(), apiResponseVo.getMessage());
+        log.error("[{}] {}", apiResponseVo.getCode(), apiResponseVo.getMessage());
       }
     }
 
@@ -49,9 +46,9 @@ public class ApiResponseUtil {
     if (status.is4xxClientError() || status.is5xxServerError()) {
       if (e != null) {
         e.printStackTrace();
-        logger.error("[" + code + "]", e);
+        log.error("[" + code + "]", e);
       } else {
-        logger.error("[{}] {}", code, message);
+        log.error("[{}] {}", code, message);
       }
     }
 

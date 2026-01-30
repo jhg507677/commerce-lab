@@ -21,14 +21,26 @@ configurations {
 }
 
 repositories {
-	mavenCentral()
+	mavenCentral() // 의존성을 받을 저장소
 }
 
+/*
+    implementation : 프로젝트 코드가 컴파일 시점과 런타임에 모두 해당 라이브러리를 필요로 할때
+    annotaionProcessor : 컴파일시에 애너테이션을 처리할때 사용되는 도구의 의존성 지정
+*/
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+    // db
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
+
+    // test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

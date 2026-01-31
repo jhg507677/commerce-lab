@@ -74,6 +74,7 @@
   </root>
 
   <!-- 특정패키지 로깅레벨 설정 -->
+  <logger name="com.zaxxer.hikari" level="info"/>
   <logger name="org.apache.ibatis" level="debug" additivity="false">
     <appender-ref ref="CONSOLE"/>
     <appender-ref ref="FILE"/>

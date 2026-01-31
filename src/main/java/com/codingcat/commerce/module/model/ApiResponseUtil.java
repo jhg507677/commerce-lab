@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class ApiResponseUtil {
-  public static <T> ResponseEntity<ApiResponseVo<T>> sendApiResponse(ApiResponseVo<T> apiResponseVo) {
+  public static <T> ResponseEntity<ApiResponseVo<?>> sendApiResponse(ApiResponseVo<T> apiResponseVo) {
 
     // 2️⃣ 에러 로깅
     if (apiResponseVo.getStatus().is4xxClientError() || apiResponseVo.getStatus().is5xxServerError()) {
@@ -67,7 +67,7 @@ public class ApiResponseUtil {
     return new ResponseEntity<>(response, headers, status);
   }
 
-  public static <T> ResponseEntity<ApiResponseVo<T>> sendApiResponseFailServer(Exception e) {
+  public static <T> ResponseEntity<ApiResponseVo<?>> sendApiResponseFailServer(Exception e) {
     if (e != null) e.printStackTrace();
 
     ApiResponseVo<T> response = ApiResponseVo.<T>builder()

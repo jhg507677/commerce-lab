@@ -36,9 +36,8 @@ public class Notice {
   private String content;
 
   @Schema(description = "작성한 관리자")
-//  @Column(nullable = false)
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name="admin_id")
+  @JoinColumn(name="admin_id", nullable = true)
   private Admin admin;
 
   @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -60,6 +59,7 @@ public class Notice {
     this.updatedAt = LocalDateTime.now();
   }
 
+  // 생성자 위에 입력하면 빌더 패턴 방식으로 객체를 생성하는 것이 가능함
   @Builder
   public Notice(String title, String content){
     this.title=title;

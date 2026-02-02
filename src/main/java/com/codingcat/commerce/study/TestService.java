@@ -1,7 +1,7 @@
 package com.codingcat.commerce.study;
 
-import com.codingcat.commerce.domain.customer.Customer;
-import com.codingcat.commerce.domain.customer.CustomerRepository;
+import com.codingcat.commerce.domain.user.User;
+import com.codingcat.commerce.domain.user.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 public class TestService {
 
   @Autowired
-  CustomerRepository userRepository;
+  UserRepository userRepository;
 
-  public List<Customer> getAllMembers() {
+  public List<User> getAllMembers() {
     return userRepository.findAll();
   }
 }

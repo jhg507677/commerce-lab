@@ -2,8 +2,8 @@ package com.codingcat.commerce;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-import com.codingcat.commerce.domain.customer.Customer;
-import com.codingcat.commerce.domain.customer.CustomerRepository;
+import com.codingcat.commerce.domain.user.User;
+import com.codingcat.commerce.domain.user.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +27,7 @@ class TestControllerTest {
 
   @Autowired protected MockMvc mockMvc;
   @Autowired private WebApplicationContext context;
-  @Autowired private CustomerRepository customerRepository;
+  @Autowired private UserRepository userRepository;
 
   @BeforeEach
   public void mockMvcSetUp(){
@@ -36,7 +36,7 @@ class TestControllerTest {
 
   @AfterEach
   public void cleanUp(){
-    customerRepository.deleteAll();
+    userRepository.deleteAll();
   }
 
   @DisplayName("회원 목록 조회 시 저장된 모든 고객 정보를 반환한다.")
@@ -44,14 +44,14 @@ class TestControllerTest {
   void getAllMembers() throws Exception {
     final String url = "/test";
     // given
-    Customer customer = customerRepository.save(new Customer(null, "정우성","jjj"));
+    User user = userRepository.save(new User(null, "정우성","jjj"));
 
     // when
     final ResultActions result = mockMvc.perform(get(url).accept(MediaType.APPLICATION_JSON));
 
     // then
-    result.andExpect(jsonPath("$[3].id").value(customer.getId()))
-      .andExpect(jsonPath("$[3].name").value(customer.getName()));
+    result.andExpect(jsonPath("$[3].id").value(user.getId()))
+      .andExpect(jsonPath("$[3].name").value(user.getName()));
     ;
   }
 }

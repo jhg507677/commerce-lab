@@ -26,8 +26,8 @@ import lombok.NoArgsConstructor;
 public class Notice {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="notice_id", updatable = false)
-  private Long id;
+  @Column(name="notice_idx", updatable = false)
+  private Long idx;
 
   @Column(nullable = false)
   private String title;
@@ -63,6 +63,12 @@ public class Notice {
   @Builder
   public Notice(String title, String content){
     this.title=title;
+    this.content = content;
+  }
+
+  // 엔티티에 업데이트 ㅁ여시
+  public void update(String title, String content){
+    this.title = title;
     this.content = content;
   }
 }

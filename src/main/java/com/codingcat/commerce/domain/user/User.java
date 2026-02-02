@@ -1,4 +1,4 @@
-package com.codingcat.commerce.domain.customer;
+package com.codingcat.commerce.domain.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,17 +13,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Entity // 해당 객체를 JPA관리하는 엔티티로 지정, 즉 Customer 클래스와 실제 customer 테이블을 매핑, 이름을 다르게 하고 싶다면 name 속성 사용
-public class Customer {
+public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", updatable = false)
-  private Long id;
+  @Column(name = "user_idx", updatable = false)
+  private Long idx;
 
-  @Column(name = "name", nullable = false)
+  @Column(nullable = false)
+  private String id;
+
+  @Column(nullable = false)
+  private String email;
+
+  @Column(nullable = false)
   private String name;
 
-  @Column(name = "email", nullable = false)
-  private String email;
+  @Column(nullable = false)
+  private String password;
+
+  @Column(nullable = true)
+  private String role;
 
 
   /*

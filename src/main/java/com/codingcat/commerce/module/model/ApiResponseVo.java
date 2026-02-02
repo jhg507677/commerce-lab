@@ -36,4 +36,8 @@ public class ApiResponseVo<T> {
   @Default
   @Schema(description = "응답 내용을 DB에다가 저장할때 중요도")
   private ImportanceLevel importance = LOG_ONLY;
+
+  public static ApiResponseVo<Object> ok() {
+    return ApiResponseVo.builder().status(HttpStatus.OK).code("sm.common.success.default").message("success").build();
+  }
 }

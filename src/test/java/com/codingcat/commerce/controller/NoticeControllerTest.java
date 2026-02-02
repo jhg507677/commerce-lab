@@ -1,16 +1,17 @@
 package com.codingcat.commerce.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.codingcat.commerce.domain.notice.Notice;
 import com.codingcat.commerce.domain.notice.NoticeRepository;
 import com.codingcat.commerce.dto.AddNoticeRequest;
-import com.codingcat.commerce.dto.NoticeResponse;
+import com.codingcat.commerce.dto.UpdateNoticeRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -85,5 +86,52 @@ class NoticeControllerTest {
       .andExpect(status().isOk())
       .andExpect(jsonPath("$[0].content").value(content))
       .andExpect(jsonPath("$[0].title").value(title));
+  }
+
+  @DisplayName("게시물 삭제")
+  @Test
+  void deleteNotice() throws Exception {
+    // given
+    final String url = "/api/articles/{id}";
+    Notice notice = Notice.builder()
+      .title("title")
+      .content("content")
+      .build();
+    Notice savedNotice = noticeRepository.save(notice);
+
+    // when
+    mockMvc.perform(delete(url, savedNotice.getIdx())).andExpect(status().isOk());
+
+    // then
+    List<Notice> noticeList = noticeRepository.findAll();
+    assertThat(noticeList).isEmpty();
+  }
+
+  @DisplayName("게시물 수정")
+  @Test
+  void updateNotice() throws Exception {
+    // given
+    final String url = "/api/articles/{id}";
+    Notice notice = Notice.builder()
+      .title("title")
+      .content("content")
+      .build();
+    Notice savedNotice = noticeRepository.save(notice);
+    final String newTitle = "new title";
+    final String newContent = "new content";
+    UpdateNoticeRequest request = new UpdateNoticeRequest(newTitle, newContent);
+
+
+    // when
+    ResultActions result = mockMvc.perform(
+      put(url, savedNotice.getIdx())
+        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        .content(objectMapper.writeValueAsString(request))
+      ).andExpect(status().isOk());
+
+    result.andExpect(status().isOk());
+    Notice noticeResult = noticeRepository.findById(savedNotice.getIdx()).get();
+    assertThat(noticeResult.getTitle()).isEqualTo(newTitle);
+    assertThat(noticeResult.getContent()).isEqualTo(newContent);
   }
 }

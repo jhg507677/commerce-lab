@@ -13,75 +13,59 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class ApiResponseUtil {
-  public static <T> ResponseEntity<ApiResponseVo<?>> sendApiResponse(ApiResponseVo<T> apiResponseVo) {
-
-    // 2️⃣ 에러 로깅
-    if (apiResponseVo.getStatus().is4xxClientError() || apiResponseVo.getStatus().is5xxServerError()) {
-      if (apiResponseVo.getError() != null) {
-        apiResponseVo.getError().printStackTrace();
-        log.error("[{}]", apiResponseVo.getCode(), apiResponseVo.getError());
-      } else {
-        log.error("[{}] {}", apiResponseVo.getCode(), apiResponseVo.getMessage());
-      }
-    }
-
-    // 3️⃣ HTTP Header 설정 (UTF-8 JSON)
+  private static HttpHeaders jsonHeaders() {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8));
+    return headers;
+  }
 
-    // 4️⃣ ResponseEntity 반환
+  private static  void printError(ApiResponseVo<?> apiResponseVo){
+    if (apiResponseVo.getError() != null) {
+      apiResponseVo.getError().printStackTrace();
+      log.error("[{}]", apiResponseVo.getCode(), apiResponseVo.getError());
+    } else {
+      log.error("[{}] {}", apiResponseVo.getCode(), apiResponseVo.getMessage());
+    }
+    apiResponseVo.setError(null);
+  }
+
+  public static <T> ResponseEntity<ApiResponseVo<?>> sendApiResponse(ApiResponseVo<T> apiResponseVo) {
+    printError(apiResponseVo);
     return ResponseEntity.status(apiResponseVo.getStatus())
-      .headers(headers)
+      .headers(jsonHeaders())
       .body(apiResponseVo);
   }
 
-  public static <T> ResponseEntity<ApiResponseVo<T>> sendApiResponse(
+  public static <T> ResponseEntity<ApiResponseVo<?>> sendApiResponse(
     HttpStatus status,
     String code,
     String message,
     T data,
     Exception e
   ) {
-    // 에러 로깅
-    if (status.is4xxClientError() || status.is5xxServerError()) {
-      if (e != null) {
-        e.printStackTrace();
-        log.error("[" + code + "]", e);
-      } else {
-        log.error("[{}] {}", code, message);
-      }
-    }
-
-    // HTTP Header 설정 (UTF-8 JSON)
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8));
-
     // ApiResponseVo 생성
     ApiResponseVo<T> response = ApiResponseVo.<T>builder()
       .status(status)
       .code(code)
       .message(message)
       .content(data)
+      .error(e)
       .build();
-
-    return new ResponseEntity<>(response, headers, status);
+    printError(response);
+    return new ResponseEntity<>(response, jsonHeaders(), status);
   }
 
   public static <T> ResponseEntity<ApiResponseVo<?>> sendApiResponseFailServer(Exception e) {
-    if (e != null) e.printStackTrace();
-
     ApiResponseVo<T> response = ApiResponseVo.<T>builder()
       .status(HttpStatus.INTERNAL_SERVER_ERROR)
       .code("sm.common.fail.server")
       .message("서버에 문제가 발생하여 해당 요청에 실패하였습니다. 관리자에게 문의바랍니다.")
       .content(null)
+      .error(e)
       .build();
-
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8));
-
+    printError(response);
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-      .headers(headers)
+      .headers(jsonHeaders())
       .body(response);
   }
 }

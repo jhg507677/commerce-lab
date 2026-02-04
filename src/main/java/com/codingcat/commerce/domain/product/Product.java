@@ -43,10 +43,6 @@ public class Product {
   @Schema(description = "상품코드")
   private String code;
 
-  @Column(nullable = false, updatable = false)
-  private LocalDateTime createdAt;
-  private LocalDateTime updatedAt;
-
   @Builder
   public Product(String name, String content){
     this.name=name;

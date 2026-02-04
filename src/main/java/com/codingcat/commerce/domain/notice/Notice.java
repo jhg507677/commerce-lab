@@ -40,25 +40,6 @@ public class Notice {
   @JoinColumn(name="admin_id", nullable = true)
   private Admin admin;
 
-  @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-  private LocalDateTime createdAt;
-
-  @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-  private LocalDateTime updatedAt;
-
-
-  @PrePersist
-  protected void onCreate() {
-    LocalDateTime now = LocalDateTime.now();
-    this.createdAt = now;
-    this.updatedAt = now;
-  }
-
-  @PreUpdate
-  protected void onUpdate() {
-    this.updatedAt = LocalDateTime.now();
-  }
-
   // 생성자 위에 입력하면 빌더 패턴 방식으로 객체를 생성하는 것이 가능함
   @Builder
   public Notice(String title, String content){

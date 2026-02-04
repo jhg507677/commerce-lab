@@ -6,12 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
 @Entity // 해당 객체를 JPA관리하는 엔티티로 지정, 즉 Customer 클래스와 실제 customer 테이블을 매핑, 이름을 다르게 하고 싶다면 name 속성 사용
 public class User {
   @Id
@@ -40,5 +42,16 @@ public class User {
   */
   public void changeName(String name){
     this.name = name;
+  }
+
+
+  public static User createTestUser() {
+    User user = new User();
+    user.id = "testId";
+    user.email = "test@test.com";
+    user.name = "테스트유저";
+    user.password = "password";
+    user.role = "USER";
+    return user;
   }
 }

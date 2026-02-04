@@ -47,7 +47,7 @@ class UserRepositoryTest {
   @Test
   void saveMember(){
     // given
-    User user = new User(null, "D", "ddd");
+    User user = User.createTestUser();
 
     // when
     userRepository.save(user);

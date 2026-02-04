@@ -17,7 +17,8 @@ public class Admin {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "admin_id", updatable = false)
-  private Long id;
+  private Long idx;
   private String email;
   private String password;
+  private String role;
 }

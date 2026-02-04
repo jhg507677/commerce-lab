@@ -44,7 +44,7 @@ class TestControllerTest {
   void getAllMembers() throws Exception {
     final String url = "/test";
     // given
-    User user = userRepository.save(new User(null, "정우성","jjj"));
+    User user = userRepository.save(User.createTestUser());
 
     // when
     final ResultActions result = mockMvc.perform(get(url).accept(MediaType.APPLICATION_JSON));

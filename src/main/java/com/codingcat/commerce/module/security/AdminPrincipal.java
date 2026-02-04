@@ -1,5 +1,7 @@
 package com.codingcat.commerce.module.security;
 
+import com.codingcat.commerce.domain.admin.Admin;
+import com.codingcat.commerce.domain.user.User;
 import java.util.Collection;
 import java.util.List;
 import lombok.Getter;
@@ -53,5 +55,10 @@ public class AdminPrincipal implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  // 엔티티를 받아서 Principal 생성
+  public static AdminPrincipal from(Admin admin) {
+    return new AdminPrincipal(admin.getEmail(), admin.getPassword(), admin.getRole());
   }
 }

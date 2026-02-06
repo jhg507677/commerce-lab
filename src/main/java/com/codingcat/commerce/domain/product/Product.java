@@ -48,4 +48,11 @@ public class Product {
     this.name=name;
     this.content = content;
   }
+
+  public Product(String name, String content, Admin admin, String code) {
+    this.name = name;
+    this.content = content;
+    this.admin = admin;
+    this.code = code;
+  }
 }

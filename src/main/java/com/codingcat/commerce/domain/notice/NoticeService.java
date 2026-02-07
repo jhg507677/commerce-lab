@@ -24,14 +24,14 @@ public class NoticeService {
     return noticeRepository.findAll();
   }
 
-  public void deleteById(long id) {
-    noticeRepository.deleteById(id);
+  public void deleteById(long idx) {
+    noticeRepository.deleteById(idx);
   }
 
   // @Transactional : 매칭한 메서드를 하나의 트랜잭션으로 묶는 역할
   @Transactional
-  public ResponseEntity<ApiResponseVo<?>> update(Long id, UpdateNoticeRequest request) {
-    Notice notice = noticeRepository.findById(id).orElse(null);
+  public ResponseEntity<ApiResponseVo<?>> update(Long idx, UpdateNoticeRequest request) {
+    Notice notice = noticeRepository.findById(idx).orElse(null);
     if (notice == null) {
       return ApiResponseUtil.sendApiResponse(HttpStatus.NOT_FOUND, "sm.common.fail.invalid_id", "존재하지 않는 게시물입니다.", null, null);
     }

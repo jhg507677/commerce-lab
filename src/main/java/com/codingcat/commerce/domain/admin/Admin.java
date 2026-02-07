@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Admin {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "admin_id", updatable = false)
+  @Column(name = "admin_idx", updatable = false)
   private Long idx;
   private String email;
   private String password;

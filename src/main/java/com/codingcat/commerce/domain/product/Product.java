@@ -4,6 +4,8 @@ import com.codingcat.commerce.domain.admin.Admin;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,7 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,21 +28,30 @@ public class Product {
   @Column(name="product_idx", updatable = false)
   private Long idx;
 
+  @Schema(description = "상품코드")
+  private String code;
+
+  // Enum 값을 DB에 “문자열”로 저장해 줌 -> HANDMADE
+  @Enumerated(EnumType.STRING)
+  private ProductType type;
+
   @Column(nullable = false)
   private String name;
 
   @Column(nullable = false)
   private String content;
 
-  //  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private ProductSellingStatus sellingStatus;
+
+  // @Column(nullable = false)
   @Schema(description = "등록한 관리자")
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name="admin_id")
   private Admin admin;
 
-  // 추후 oneToMany로 확장 필요
-  @Schema(description = "상품코드")
-  private String code;
+  private Integer price;
+
 
   @Builder
   public Product(String name, String content){

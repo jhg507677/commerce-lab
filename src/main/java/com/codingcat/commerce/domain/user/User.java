@@ -50,7 +50,7 @@ public class User extends BaseEntity {
 
   public static User createTestUser() {
     User user = new User();
-    user.id = "testId";
+    user.userId = "testId";
     user.email = "test@test.com";
     user.name = "테스트유저";
     user.password = "password";
@@ -59,7 +59,7 @@ public class User extends BaseEntity {
   }
 
   public AuthDto toAuth(){
-    AuthDto.builder()
+    return AuthDto.builder()
       .userId(userId)
       .email(email)
       .build();

@@ -59,6 +59,6 @@ public class UserPrincipal implements UserDetails {
 
   // 엔티티를 받아서 Principal 생성
   public static UserPrincipal from(User user) {
-    return new UserPrincipal(user.getId(), user.getPassword(), user.getRole());
+    return new UserPrincipal(user.getUserId(), user.getPassword(), user.getRole());
   }
 }

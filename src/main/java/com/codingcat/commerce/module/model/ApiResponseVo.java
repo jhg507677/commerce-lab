@@ -2,6 +2,7 @@ package com.codingcat.commerce.module.model;
 
 import static com.codingcat.commerce.module.model.ImportanceLevel.LOG_ONLY;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,9 +31,11 @@ public class ApiResponseVo<T> {
   @Schema(description = "실제 반환 데이터")
   private T content;
 
-  // 에러 메시지 문자열
+  @JsonIgnore
+  @Schema(hidden = true, description = "가공용 에러 객체")
   private Exception error;
 
+  @JsonIgnore
   @Default
   @Schema(description = "응답 내용을 DB에다가 저장할때 중요도")
   private ImportanceLevel importance = LOG_ONLY;

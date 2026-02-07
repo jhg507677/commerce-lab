@@ -11,11 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import javax.print.DocFlavor.STRING;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -55,13 +51,12 @@ public class JwtFilter extends OncePerRequestFilter {
       ) throws ServletException, IOException {
     ServiceType SERVICE_TYPE;
     Integer USER_IDX;
-    String URI_TREE;
 
     // ***** 1. 토큰 가져오기
     Optional<String> token = getBearerTokenByHeader(request);
     String servletPath = request.getServletPath();
       if(token.isEmpty()){
-      if(servletPath.contains("public")){
+      if(servletPath.contains("/api/public")){
         filterChain.doFilter(request, response);
         return;
       } else{

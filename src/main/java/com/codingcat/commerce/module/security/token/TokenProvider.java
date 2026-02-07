@@ -1,13 +1,12 @@
 package com.codingcat.commerce.module.security.token;
 
 import com.codingcat.commerce.module.model.ServiceType;
-import com.codingcat.commerce.module.security.AuthVo;
+import com.codingcat.commerce.module.security.AuthDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -17,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import io.jsonwebtoken.SignatureException;
 
 @Slf4j
 @Service
@@ -57,9 +55,8 @@ public class TokenProvider implements InitializingBean{
 
   public TokenResult generateJwt(
     TokenType tokenType,
-    AuthVo auth,
-    long curTimestamp,
-    Jwt tokenBox
+    AuthDto auth,
+    long curTimestamp
   ) {
     Key secretKey = getSecretKeyByServiceType(auth.getServiceType());
 
@@ -100,21 +97,21 @@ public class TokenProvider implements InitializingBean{
   public JWT_STATUS validateJwt(String jwt) {
     try {
       getClaims(jwt);
-    } catch (UnsupportedJwtException uje) {
-      return JWT_STATUS.UNSUPPORTED;
-    } catch (MalformedJwtException mje) {
-      return JWT_STATUS.MALFORMED;
-    } catch (ExpiredJwtException eje) {
+      return JWT_STATUS.VALID;
+    } catch (ExpiredJwtException e) {
+      logJwtError(e);
       return JWT_STATUS.EXPIRED;
-    } catch (SignatureException se) {
+    } catch (SecurityException e) {
+      logJwtError(e);
       return JWT_STATUS.INVALID_SIGNATURE;
-    } catch (IllegalArgumentException iae) {
+    } catch (JwtException | IllegalArgumentException e) {
+      logJwtError(e);
       return JWT_STATUS.MALFORMED;
-    } catch (Exception e) {
-      e.printStackTrace();
-      return JWT_STATUS.ERROR;
     }
-    return JWT_STATUS.VALID;
+  }
+
+  private void logJwtError(Exception e) {
+    log.error("올바른 JWT 토큰이 아닙니다", e);
   }
 
   private Jws<Claims> getClaims(String jwt) {

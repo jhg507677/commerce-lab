@@ -1,63 +1,61 @@
 package com.codingcat.commerce.module.security;
 
-import com.codingcat.commerce.module.security.token.Jwt;
+import static com.codingcat.commerce.module.model.ApiResponseUtil.sendApiResponseFailServer;
+
+import com.codingcat.commerce.domain.user.UserRepository;
+import com.codingcat.commerce.module.model.ApiResponseUtil;
+import com.codingcat.commerce.module.model.ApiResponseVo;
+import com.codingcat.commerce.module.security.token.LoginToken;
+import com.codingcat.commerce.module.security.token.LoginTokenRepository;
 import com.codingcat.commerce.module.security.token.TokenProvider;
 import com.codingcat.commerce.module.security.token.TokenProvider.TokenResult;
 import com.codingcat.commerce.module.security.token.TokenType;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.ZoneId;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-RequiredArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class AuthService {
   private final TokenProvider tokenProvider;
+  private final LoginTokenRepository tokenRepository;
+
 
   // 토큰 생성하기
-  public HashMap<String,Object> generateLoginToken(
-    AuthVo auth
+  public ResponseEntity<ApiResponseVo<?>> generateLoginToken(
+    AuthDto auth
   ){
     Timestamp currentTimestamp = Timestamp.valueOf(LocalDateTime.now());
     try {
-      // Access Token & Refresh Token 발행
-      Jwt tokenBox = new Jwt();
-      TokenResult accessToken = tokenProvider.generateJwt(TokenType.ACCESS, auth, currentTimestamp.getTime(), tokenBox);
-      TokenResult refreshToken = tokenProvider.generateJwt(TokenType.REFRESH, auth, currentTimestamp.getTime(), tokenBox);
+      TokenResult accessToken = tokenProvider.generateJwt(TokenType.ACCESS, auth, currentTimestamp.getTime());
+      LoginToken accessTokenBox = LoginToken.builder()
+        .accessToken(accessToken.token())
+        .expiredDateTime(accessToken.expiresAt())
+        .userIdx(auth.getUserIdx())
+        .build();
 
-      // expiresAt.toEpochMilli();
-      // DB에 토큰들 저장
-      TokenVo accessTokenVo = new TokenVo(accessWtokenIdx, serviceName, user.getWuserIdx(), accessToken,
-        TokenVo.TokenType.access,
-        currentTimestamp,
-        accessTokenExpires,
-        1, ip, tokenPairId);
-      result.put("access_token",accessToken);
-      result.put("accessTokenExpires",accessTokenExpires);
-      try {
-        dao.insertWebUserToken(accessTokenVo);
-      }catch (Exception e){
-        printErrorLog(e);
-        result.put("message","access_token_db");
-      }
+      TokenResult refreshToken = tokenProvider.generateJwt(TokenType.REFRESH, auth, currentTimestamp.getTime());
+      LoginToken refreshTokenBox = LoginToken.builder()
+        .refreshToken(refreshToken.token())
+        .expiredDateTime(refreshToken.expiresAt())
+        .userIdx(auth.getUserIdx())
+        .build();
+      // 생성한 토큰들 DB에 저장
+      LoginToken savedAccessToken = tokenRepository.save(accessTokenBox);
+      LoginToken savedRefreshToken = tokenRepository.save(refreshTokenBox);
 
-      TokenVo refreshTokenDto = new TokenVo(refreshWtokenIdx, serviceName, user.getWuserIdx(), refreshToken,
-        TokenVo.TokenType.refresh, currentTimestamp,
-        new Timestamp(jwtProvider.getExpirationFromJwt(refreshToken, serviceName).getTime()),
-        1, ip, tokenPairId);
-      result.put("refresh_token",refreshToken);
-      try {
-        dao.insertWebUserToken(refreshTokenDto);
-      }catch (Exception e){
-        e.printStackTrace();
-        result.put("message","refresh_token_db");
-      }
-      return result;
+      // 응답
+      LoginResponse loginResponse = new LoginResponse();
+      loginResponse.setAccessToken(savedAccessToken.getAccessToken());
+      loginResponse.setAccessTokenExpire(savedAccessToken.getExpiredDateTime());
+      loginResponse.setRefreshToken(savedRefreshToken.getRefreshToken());
+      return ApiResponseUtil.sendApiResponse(HttpStatus.OK, "sm.common.success.default", "success", loginResponse, null);
     }catch (Exception e){
-      printErrorLog(e);
-      result.put("message","token_exception");
-      return result;
+      return sendApiResponseFailServer(e);
     }
   }
 }

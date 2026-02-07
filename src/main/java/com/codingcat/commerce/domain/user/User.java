@@ -1,8 +1,7 @@
 package com.codingcat.commerce.domain.user;
 
 import com.codingcat.commerce.domain.BaseEntity;
-import com.codingcat.commerce.module.model.ServiceType;
-import com.codingcat.commerce.module.security.AuthVo;
+import com.codingcat.commerce.module.security.AuthDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -60,8 +58,8 @@ public class User extends BaseEntity {
     return user;
   }
 
-  public AuthVo toAuth(){
-    AuthVo.builder()
+  public AuthDto toAuth(){
+    AuthDto.builder()
       .userId(userId)
       .email(email)
       .build();

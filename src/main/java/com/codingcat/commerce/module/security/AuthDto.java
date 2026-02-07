@@ -8,9 +8,9 @@ import lombok.Setter;
 @Builder
 @Setter
 @Getter
-public class AuthVo {
-  private Integer userIdx;
-  private Integer adminIdx;
+public class AuthDto {
+  private Long userIdx;
+  private Long adminIdx;
   private String userId;
   private String email;
   private ServiceType serviceType;
@@ -18,7 +18,7 @@ public class AuthVo {
     if(serviceType == ServiceType.USER) return userId;
     else return email;
   }
-  public Integer getAuthIdx(){
+  public Long getAuthIdx(){
     if(serviceType == ServiceType.USER) return userIdx;
     else return adminIdx;
   }

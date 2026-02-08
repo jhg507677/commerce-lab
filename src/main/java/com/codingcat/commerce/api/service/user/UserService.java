@@ -1,5 +1,7 @@
-package com.codingcat.commerce.domain.user;
+package com.codingcat.commerce.api.service.user;
 
+import com.codingcat.commerce.domain.user.User;
+import com.codingcat.commerce.domain.user.UserRepository;
 import com.codingcat.commerce.dto.AddUserRequest;
 import com.codingcat.commerce.module.model.ApiResponseUtil;
 import com.codingcat.commerce.module.model.ApiResponseVo;
@@ -42,5 +44,13 @@ public class UserService {
     }
 
     return authService.generateLoginToken(user.toAuth());
+  }
+
+  /*유저 상세 조회*/
+  public ResponseEntity<ApiResponseVo<?>> getUser(Long idx) {
+    User user = userRepository.findById(idx).orElse(null);
+    if(user == null){
+      return ApiResponseUtil.sendApiResponse(HttpStatus.NOT_FOUND, "sm.common.fail.invalid_request", "해당 데이터를 가져올 수 없습니다.", null, null);
+    }
   }
 }

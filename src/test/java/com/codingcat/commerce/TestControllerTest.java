@@ -50,8 +50,8 @@ class TestControllerTest {
     final ResultActions result = mockMvc.perform(get(url).accept(MediaType.APPLICATION_JSON));
 
     // then
-    result.andExpect(jsonPath("$[3].id").value(user.getId()))
-      .andExpect(jsonPath("$[3].name").value(user.getName()));
+    result.andExpect(jsonPath("$[0].id").value(user.getUserId()))
+      .andExpect(jsonPath("$[0].name").value(user.getName()));
     ;
   }
 }

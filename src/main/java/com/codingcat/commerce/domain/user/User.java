@@ -1,6 +1,7 @@
 package com.codingcat.commerce.domain.user;
 
 import com.codingcat.commerce.domain.BaseEntity;
+import com.codingcat.commerce.module.model.ServiceType;
 import com.codingcat.commerce.module.security.AuthDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -50,7 +51,7 @@ public class User extends BaseEntity {
 
   public static User createTestUser() {
     User user = new User();
-    user.id = "testId";
+    user.userId = "testId";
     user.email = "test@test.com";
     user.name = "테스트유저";
     user.password = "password";
@@ -59,7 +60,8 @@ public class User extends BaseEntity {
   }
 
   public AuthDto toAuth(){
-    AuthDto.builder()
+    return AuthDto.builder()
+      .serviceType(ServiceType.USER)
       .userId(userId)
       .email(email)
       .build();

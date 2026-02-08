@@ -1,12 +1,15 @@
 package com.codingcat.commerce.controller;
 
-import com.codingcat.commerce.domain.user.UserService;
+import com.codingcat.commerce.api.service.user.UserService;
 import com.codingcat.commerce.dto.AddUserRequest;
 import com.codingcat.commerce.module.model.ApiResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +35,14 @@ public class UserController {
     return userService.login(request);
   }
 
+  @Operation(summary = "유저 상세", description = "")
+  @Parameters({@Parameter(name = "id", description = "삭제 공지사항 ID", required = true)})
+  @PostMapping("/api/v1/user/{idx}")
+  public ResponseEntity<ApiResponseVo<?>> signIn(
+    @PathVariable(value = "idx") Long idx
+  ){
+    return userService.getUser(idx);
+  }
 }
 
 

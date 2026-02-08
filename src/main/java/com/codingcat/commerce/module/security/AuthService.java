@@ -2,7 +2,6 @@ package com.codingcat.commerce.module.security;
 
 import static com.codingcat.commerce.module.model.ApiResponseUtil.sendApiResponseFailServer;
 
-import com.codingcat.commerce.domain.user.UserRepository;
 import com.codingcat.commerce.module.model.ApiResponseUtil;
 import com.codingcat.commerce.module.model.ApiResponseVo;
 import com.codingcat.commerce.module.security.token.LoginToken;
@@ -12,7 +11,6 @@ import com.codingcat.commerce.module.security.token.TokenProvider.TokenResult;
 import com.codingcat.commerce.module.security.token.TokenType;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,14 +29,14 @@ public class AuthService {
   ){
     Timestamp currentTimestamp = Timestamp.valueOf(LocalDateTime.now());
     try {
-      TokenResult accessToken = tokenProvider.generateJwt(TokenType.ACCESS, auth, currentTimestamp.getTime());
+      TokenResult accessToken = tokenProvider.makeToken(TokenType.ACCESS, auth, currentTimestamp.getTime());
       LoginToken accessTokenBox = LoginToken.builder()
         .accessToken(accessToken.token())
         .expiredDateTime(accessToken.expiresAt())
         .userIdx(auth.getUserIdx())
         .build();
 
-      TokenResult refreshToken = tokenProvider.generateJwt(TokenType.REFRESH, auth, currentTimestamp.getTime());
+      TokenResult refreshToken = tokenProvider.makeToken(TokenType.REFRESH, auth, currentTimestamp.getTime());
       LoginToken refreshTokenBox = LoginToken.builder()
         .refreshToken(refreshToken.token())
         .expiredDateTime(refreshToken.expiresAt())

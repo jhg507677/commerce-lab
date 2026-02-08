@@ -1,5 +1,7 @@
-package com.codingcat.commerce.domain.notice;
+package com.codingcat.commerce.api.service.notice;
 
+import com.codingcat.commerce.domain.notice.Notice;
+import com.codingcat.commerce.domain.notice.NoticeRepository;
 import com.codingcat.commerce.dto.AddNoticeRequest;
 import com.codingcat.commerce.dto.UpdateNoticeRequest;
 import com.codingcat.commerce.module.model.ApiResponseUtil;

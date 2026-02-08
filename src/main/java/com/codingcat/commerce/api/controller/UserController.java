@@ -1,4 +1,4 @@
-package com.codingcat.commerce.controller;
+package com.codingcat.commerce.api.controller;
 
 import com.codingcat.commerce.api.service.user.UserService;
 import com.codingcat.commerce.dto.AddUserRequest;

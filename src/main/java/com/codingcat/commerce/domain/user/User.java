@@ -1,7 +1,6 @@
 package com.codingcat.commerce.domain.user;
 
 import com.codingcat.commerce.domain.BaseEntity;
-import com.codingcat.commerce.module.model.ServiceType;
 import com.codingcat.commerce.module.security.AuthDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

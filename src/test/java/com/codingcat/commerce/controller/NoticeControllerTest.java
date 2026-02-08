@@ -92,7 +92,7 @@ class NoticeControllerTest {
   @Test
   void deleteNotice() throws Exception {
     // given
-    final String url = "/api/articles/{id}";
+    final String url = "/api/articles/{idx}";
     Notice notice = Notice.builder()
       .title("title")
       .content("content")
@@ -100,7 +100,7 @@ class NoticeControllerTest {
     Notice savedNotice = noticeRepository.save(notice);
 
     // when
-    mockMvc.perform(delete(url, savedNotice.getIdx())).andExpect(status().isOk());
+    mockMvc.perform(delete(url, savedNotice.getId())).andExpect(status().isOk());
 
     // then
     List<Notice> noticeList = noticeRepository.findAll();
@@ -111,7 +111,7 @@ class NoticeControllerTest {
   @Test
   void updateNotice() throws Exception {
     // given
-    final String url = "/api/articles/{id}";
+    final String url = "/api/articles/{idx}";
     Notice notice = Notice.builder()
       .title("title")
       .content("content")
@@ -124,13 +124,13 @@ class NoticeControllerTest {
 
     // when
     ResultActions result = mockMvc.perform(
-      put(url, savedNotice.getIdx())
+      put(url, savedNotice.getId())
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .content(objectMapper.writeValueAsString(request))
       ).andExpect(status().isOk());
 
     result.andExpect(status().isOk());
-    Notice noticeResult = noticeRepository.findById(savedNotice.getIdx()).get();
+    Notice noticeResult = noticeRepository.findById(savedNotice.getId()).get();
     assertThat(noticeResult.getTitle()).isEqualTo(newTitle);
     assertThat(noticeResult.getContent()).isEqualTo(newContent);
   }

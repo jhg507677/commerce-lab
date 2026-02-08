@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class AddUserRequest {
   @NotBlank(message = "id값은 필수입니다.")
-  private String id;
+  private String idx;
 
   @NotBlank(message = "성명은 필수입니다.")
   private String name;
@@ -23,7 +23,7 @@ public class AddUserRequest {
 
   public User toEntity(){
     return User.builder()
-      .userId(id)
+      .userId(idx)
       .name(name)
       .email(email)
       .password(password)

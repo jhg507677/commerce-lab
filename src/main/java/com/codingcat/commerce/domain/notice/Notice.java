@@ -10,10 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,7 +34,7 @@ public class Notice {
 
   @Schema(description = "작성한 관리자")
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name="admin_id", nullable = true)
+  @JoinColumn(name="admin_idx", nullable = true)
   private Admin admin;
 
   // 생성자 위에 입력하면 빌더 패턴 방식으로 객체를 생성하는 것이 가능함

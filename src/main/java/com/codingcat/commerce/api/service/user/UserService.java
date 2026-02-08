@@ -1,8 +1,10 @@
 package com.codingcat.commerce.api.service.user;
 
+import com.codingcat.commerce.api.controller.UserController.CreateAccessTokenRequest;
 import com.codingcat.commerce.domain.user.User;
 import com.codingcat.commerce.domain.user.UserRepository;
 import com.codingcat.commerce.dto.AddUserRequest;
+import com.codingcat.commerce.module.exception.CustomException;
 import com.codingcat.commerce.module.model.ApiResponseUtil;
 import com.codingcat.commerce.module.model.ApiResponseVo;
 import com.codingcat.commerce.module.security.AuthService;
@@ -31,12 +33,12 @@ public class UserService {
     // 아이디 검증
     User user = userRepository.findByUserId(request.toEntity()).orElse(null);
     if(user == null){
-      return ApiResponseUtil.sendApiResponse(HttpStatus.NOT_FOUND, "sm.common.fail.invalid_request", "로그인 할 수없는 계정입니다.", null, null);
+      throw new CustomException(HttpStatus.NOT_FOUND, "sm.common.fail.invalid_invalid_request","로그인 할 수없는 계정입니다.");
     }
 
     // 비밀번호 검증
     if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-      return ApiResponseUtil.sendApiResponse(HttpStatus.BAD_REQUEST, "sm.common.fail.invalid_invalid_request", "로그인 할 수없는 계정입니다.", null, null);
+      throw new CustomException(HttpStatus.BAD_REQUEST, "sm.common.fail.invalid_invalid_request","로그인 할 수없는 계정입니다.");
     }
 
     return authService.generateLoginToken(user.toAuth());
@@ -46,7 +48,13 @@ public class UserService {
   public ResponseEntity<ApiResponseVo<?>> getUser(Long idx) {
     User user = userRepository.findById(idx).orElse(null);
     if(user == null){
-      return ApiResponseUtil.sendApiResponse(HttpStatus.NOT_FOUND, "sm.common.fail.invalid_request", "해당 데이터를 가져올 수 없습니다.", null, null);
+      throw new CustomException(HttpStatus.NOT_FOUND, "sm.common.fail.invalid_invalid_request","존재하지 않는 유저입니다.");
     }
+    return ApiResponseUtil.sendApiResponse(HttpStatus.OK, "sm.common.success.default", "success", user, null);
+  }
+
+  public ResponseEntity<ApiResponseVo<?>> refresh(CreateAccessTokenRequest request) {
+    String accessToken = authService.createNewAccessToken(request.refreshToken());
+    return ApiResponseUtil.sendApiResponse(HttpStatus.OK, "sm.common.success.default", "success", accessToken, null);
   }
 }

@@ -25,16 +25,15 @@ public class GlobalExceptionHandler {
     return headers;
   }
 
-  // TODO :  테스트 필요함
   @ExceptionHandler(CustomException.class)
   public ResponseEntity<ApiResponseVo<?>> handleCustomException(
-    CustomException ex
+    CustomException custom
   ) {
-    ex.printStackTrace(); // 로깅
+    custom.printStackTrace(); // 로깅
     ApiResponseVo<?> response = ApiResponseVo.builder()
-      .status(HttpStatus.BAD_REQUEST)
-      .code(ex.getCustomCode())
-      .message(ex.getMessage())
+      .status(custom.getHttpStatus())
+      .code(custom.getCustomCode())
+      .message(custom.getMessage())
       .build();
     return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
   }

@@ -1,13 +1,19 @@
 package com.codingcat.commerce.module.exception;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+
+@Getter
+@RequiredArgsConstructor
 public class CustomException extends RuntimeException {
 
-  public String getCustomCode() {
-    return customCode;
-  }
-
+  private final HttpStatus httpStatus;  // 에러 코드나 특정 식별자
   private final String customCode;  // 에러 코드나 특정 식별자
-  public CustomException(String customCode) {
-    this.customCode = customCode;
+  private final String errorMessage;  // 에러 메시지
+
+  @Override
+  public String getMessage() {
+    return errorMessage;
   }
 }

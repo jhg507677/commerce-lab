@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,18 @@ public class UserController {
   ){
     return userService.login(request);
   }
+
+  @Operation(summary = "리프레시토큰 재발급", description = "")
+  @PostMapping("/api/public/v1/user/refresh")
+  public ResponseEntity<ApiResponseVo<?>> refresh(
+    @Valid @RequestBody CreateAccessTokenRequest request
+  ){
+    return userService.refresh(request);
+  }
+  public record CreateAccessTokenRequest(
+    @NotBlank(message = "리프레시 토큰을 필수로 넣어주세요.") String refreshToken
+  ) {}
+
 
   @Operation(summary = "유저 상세", description = "")
   @Parameters({@Parameter(name = "id", description = "삭제 공지사항 ID", required = true)})

@@ -52,7 +52,6 @@ public class Product {
 
   private Integer price;
 
-
   @Builder
   public Product(String name, String content){
     this.name=name;

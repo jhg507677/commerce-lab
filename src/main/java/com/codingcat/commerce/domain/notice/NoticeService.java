@@ -33,7 +33,7 @@ public class NoticeService {
   public ResponseEntity<ApiResponseVo<?>> update(Long idx, UpdateNoticeRequest request) {
     Notice notice = noticeRepository.findById(idx).orElse(null);
     if (notice == null) {
-      return ApiResponseUtil.sendApiResponse(HttpStatus.NOT_FOUND, "sm.common.fail.invalid_id", "존재하지 않는 게시물입니다.", null, null);
+      return ApiResponseUtil.sendApiResponse(HttpStatus.NOT_FOUND, "sm.common.fail.invalid_id", "존재하지 않는 게시물입니다.", null, new Exception("존재하지 않는 게시물입니다."));
     }
     notice.update(request.getTitle(), request.getContent());
     return ApiResponseUtil.sendApiResponse(HttpStatus.OK, "sm.common.success.default", "success", notice, null);

@@ -28,7 +28,10 @@ public class OrderService {
     List<String> requestProductNumbers = request.getProductNumbers();
 
     // DB에서 상품 조회
+    // TODO : 조인시 남은 재고 차량 여부도 같이 가져와야함
     List<Product> dbProducts = productRepository.findAllByCodeIn(requestProductNumbers);
+
+    // TODO : 재고 차감 필요
 
     List<Product> orderedProducts = findProductByDuplicateProductNumber(
       dbProducts, requestProductNumbers);

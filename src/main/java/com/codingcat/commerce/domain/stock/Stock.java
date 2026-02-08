@@ -30,10 +30,13 @@ public class Stock extends BaseEntity {
 
   private int quantity;
 
+  private boolean unlimited; // true이면 무한 재고
+
   @Builder
-  public Stock(Product product, int quantity) {
+  public Stock(Product product, int quantity, boolean unlimited) {
     this.product = product;
     this.quantity = quantity;
+    this.unlimited = unlimited;
   }
 
   public static void create(List<Product> savedProducts) {

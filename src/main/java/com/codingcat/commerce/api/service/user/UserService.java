@@ -8,11 +8,13 @@ import com.codingcat.commerce.module.exception.CustomException;
 import com.codingcat.commerce.module.model.ApiResponseUtil;
 import com.codingcat.commerce.module.model.ApiResponseVo;
 import com.codingcat.commerce.module.security.AuthService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CookieValue;
 
 @RequiredArgsConstructor
 @Service
@@ -29,7 +31,10 @@ public class UserService {
   }
 
   /*로그인*/
-  public ResponseEntity<ApiResponseVo<?>> login(AddUserRequest request) {
+  public ResponseEntity<ApiResponseVo<?>> login(
+    HttpServletResponse response,
+    AddUserRequest request
+  ) {
     // 아이디 검증
     User user = userRepository.findByUserId(request.toEntity()).orElse(null);
     if(user == null){
@@ -41,7 +46,7 @@ public class UserService {
       throw new CustomException(HttpStatus.BAD_REQUEST, "sm.common.fail.invalid_invalid_request","로그인 할 수없는 계정입니다.");
     }
 
-    return authService.generateLoginToken(user.toAuth());
+    return authService.generateLoginToken(response, user.toAuth());
   }
 
   /*유저 상세 조회*/
@@ -53,8 +58,10 @@ public class UserService {
     return ApiResponseUtil.sendApiResponse(HttpStatus.OK, "sm.common.success.default", "success", user, null);
   }
 
-  public ResponseEntity<ApiResponseVo<?>> refresh(CreateAccessTokenRequest request) {
-    String accessToken = authService.createNewAccessToken(request.refreshToken());
+  public ResponseEntity<ApiResponseVo<?>> refresh(
+    @CookieValue(name = "refreshToken") String refreshToken
+  ) {
+    String accessToken = authService.createNewAccessToken(refreshToken);
     return ApiResponseUtil.sendApiResponse(HttpStatus.OK, "sm.common.success.default", "success", accessToken, null);
   }
 }

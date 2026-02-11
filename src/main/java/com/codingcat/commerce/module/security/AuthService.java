@@ -15,10 +15,14 @@ import com.codingcat.commerce.module.security.token.TokenProvider;
 import com.codingcat.commerce.module.security.token.TokenProvider.JWT_STATUS;
 import com.codingcat.commerce.module.security.token.TokenProvider.TokenResult;
 import com.codingcat.commerce.module.security.token.TokenType;
+import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +37,7 @@ public class AuthService {
 
   // 토큰 생성하기
   public ResponseEntity<ApiResponseVo<?>> generateLoginToken(
+    HttpServletResponse response,
     AuthDto auth
   ){
     Timestamp currentTimestamp = Timestamp.valueOf(LocalDateTime.now());
@@ -51,7 +56,18 @@ public class AuthService {
       LoginResponse loginResponse = new LoginResponse();
       loginResponse.setAccessToken(accessToken.token());
       loginResponse.setAccessTokenExpire(accessToken.expiresAt());
-      loginResponse.setRefreshToken(refreshToken.token());
+      loginResponse.setUserIdx(auth.getUserIdx());
+
+      // Refresh Token을 HttpOnly 쿠키로 설정
+      ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", refreshToken.token())
+        .httpOnly(true)
+        .secure(true)
+        .path("/")
+        .maxAge(Duration.ofDays(7))
+        .sameSite("Strict")
+        .build();
+
+      response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
       return ApiResponseUtil.sendApiResponse(HttpStatus.OK, "sm.common.success.default", "success", loginResponse, null);
     }catch (Exception e){
       return sendApiResponseFailServer(e);

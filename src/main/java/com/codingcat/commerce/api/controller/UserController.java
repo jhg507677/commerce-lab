@@ -6,6 +6,7 @@ import com.codingcat.commerce.module.model.ApiResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +32,10 @@ public class UserController {
   @Operation(summary = "로그인", description = "")
   @PostMapping("/api/public/v1/user/login")
   public ResponseEntity<ApiResponseVo<?>> signIn(
+    HttpServletResponse response,
     @Valid @RequestBody AddUserRequest request
   ){
-    return userService.login(request);
+    return userService.login(response, request);
   }
 
   @Operation(summary = "리프레시토큰 재발급", description = "")

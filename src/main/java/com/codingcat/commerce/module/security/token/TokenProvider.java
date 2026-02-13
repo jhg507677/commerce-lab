@@ -6,7 +6,6 @@ import com.codingcat.commerce.module.security.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwsHeader;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -17,12 +16,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -77,6 +74,7 @@ public class TokenProvider implements InitializingBean{
     Instant expiresAt
   ) {}
 
+  // 토큰 생성
   public TokenResult makeToken(
     TokenType tokenType,
     AuthDto auth,
@@ -151,7 +149,6 @@ public class TokenProvider implements InitializingBean{
     Claims claims = getClaims(jwt).getBody();
     return claims.get("IDX", Long.class);
   }
-
 
   // 토큰의 헤더에서 서비스 타입 가져오기
   public ServiceType getServiceTypeByToken(String jwt) {

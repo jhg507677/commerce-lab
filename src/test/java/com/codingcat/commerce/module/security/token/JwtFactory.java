@@ -33,10 +33,10 @@ public class JwtFactory {
     return Jwts.builder()
       .setHeaderParam("SERVICE_TYPE", ServiceType.USER)
       .setIssuer(tokenProperties.getISSUER())
-      .setIssuedAt(issuedAt)
+      .setIssuedAt(this.issuedAt)
       .setSubject(testUser.getUserId())
       .claim("IDX", testUser.getIdx())
-      .setExpiration(expiration)
+      .setExpiration(this.expiration)
       .signWith(Keys.hmacShaKeyFor(tokenProperties.getUSER_SECRET().getBytes(StandardCharsets.UTF_8)))
       .compact();
   }

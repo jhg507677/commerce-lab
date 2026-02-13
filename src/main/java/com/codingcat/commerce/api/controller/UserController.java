@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,9 +42,9 @@ public class UserController {
   @Operation(summary = "리프레시토큰 재발급", description = "")
   @PostMapping("/api/public/v1/user/refresh")
   public ResponseEntity<ApiResponseVo<?>> refresh(
-    @Valid @RequestBody CreateAccessTokenRequest request
+    @CookieValue(name = "refreshToken") String refreshToken
   ){
-    return userService.refresh(request);
+    return userService.refresh(refreshToken);
   }
   public record CreateAccessTokenRequest(
     @NotBlank(message = "리프레시 토큰을 필수로 넣어주세요.") String refreshToken

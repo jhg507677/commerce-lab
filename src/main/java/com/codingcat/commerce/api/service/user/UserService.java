@@ -45,7 +45,6 @@ public class UserService {
     if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
       throw new CustomException(HttpStatus.BAD_REQUEST, "sm.common.fail.invalid_invalid_request","로그인 할 수없는 계정입니다.");
     }
-
     return authService.generateLoginToken(response, user.toAuth());
   }
 
@@ -59,7 +58,7 @@ public class UserService {
   }
 
   public ResponseEntity<ApiResponseVo<?>> refresh(
-    @CookieValue(name = "refreshToken") String refreshToken
+    String refreshToken
   ) {
     String accessToken = authService.createNewAccessToken(refreshToken);
     return ApiResponseUtil.sendApiResponse(HttpStatus.OK, "sm.common.success.default", "success", accessToken, null);

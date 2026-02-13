@@ -100,7 +100,7 @@ class NoticeControllerTest {
     Notice savedNotice = noticeRepository.save(notice);
 
     // when
-    mockMvc.perform(delete(url, savedNotice.getId())).andExpect(status().isOk());
+    mockMvc.perform(delete(url, savedNotice.getIdx())).andExpect(status().isOk());
 
     // then
     List<Notice> noticeList = noticeRepository.findAll();
@@ -124,13 +124,13 @@ class NoticeControllerTest {
 
     // when
     ResultActions result = mockMvc.perform(
-      put(url, savedNotice.getId())
+      put(url, savedNotice.getIdx())
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .content(objectMapper.writeValueAsString(request))
       ).andExpect(status().isOk());
 
     result.andExpect(status().isOk());
-    Notice noticeResult = noticeRepository.findById(savedNotice.getId()).get();
+    Notice noticeResult = noticeRepository.findById(savedNotice.getIdx()).get();
     assertThat(noticeResult.getTitle()).isEqualTo(newTitle);
     assertThat(noticeResult.getContent()).isEqualTo(newContent);
   }

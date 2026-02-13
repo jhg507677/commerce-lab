@@ -92,4 +92,19 @@ class TokenProviderTest {
 
     assertThat(id).isEqualTo(testUser.getUserId());
   }
+
+  @DisplayName("================ 토큰으로 유저 ID를 가져올 수 있다. ================ ")
+  @Test
+  void getUserIdxByToken(){
+    // when
+    User user = User.createTestUser();
+
+    String token = JwtFactory
+      .builder().build()
+      .createUserToken(tokenProperties, user);
+
+    //then
+    String id = tokenProvider.getAuthIdFromToken(token);
+    assertThat(user.getUserId()).isEqualTo(id);
+  }
 }

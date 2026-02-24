@@ -1,4 +1,4 @@
-package com.codingcat.commerce.dto;
+package com.codingcat.commerce.domain.notice.dto;
 
 import com.codingcat.commerce.domain.notice.Notice;
 import lombok.Getter;

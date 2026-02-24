@@ -38,7 +38,6 @@ public class Stock extends BaseEntity {
     this.quantity = quantity;
     this.unlimited = unlimited;
   }
-
   public static void create(List<Product> savedProducts) {
   }
 }

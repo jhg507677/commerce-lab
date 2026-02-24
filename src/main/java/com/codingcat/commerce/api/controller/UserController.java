@@ -1,8 +1,8 @@
 package com.codingcat.commerce.api.controller;
 
 import com.codingcat.commerce.api.service.user.UserService;
-import com.codingcat.commerce.dto.AddUserRequest;
-import com.codingcat.commerce.module.model.ApiResponseVo;
+import com.codingcat.commerce.domain.user.UserCreateRequest;
+import com.codingcat.commerce.module.response.ApiResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -25,7 +25,7 @@ public class UserController {
   @Operation(summary = "회원가입", description = "")
   @PostMapping("/api/public/v1/user")
   public ResponseEntity<ApiResponseVo<?>> signUp(
-    @Valid @RequestBody AddUserRequest request
+    @Valid @RequestBody UserCreateRequest request
   ){
     return userService.signUp(request);
   }
@@ -34,7 +34,7 @@ public class UserController {
   @PostMapping("/api/public/v1/user/login")
   public ResponseEntity<ApiResponseVo<?>> signIn(
     HttpServletResponse response,
-    @Valid @RequestBody AddUserRequest request
+    @Valid @RequestBody UserCreateRequest request
   ){
     return userService.login(response, request);
   }

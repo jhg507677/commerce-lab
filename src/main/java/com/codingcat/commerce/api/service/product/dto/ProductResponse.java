@@ -22,7 +22,7 @@ public class ProductResponse {
       .type(item.getType())
       .sellingStatus(item.getSellingStatus())
       .name(item.getName())
-      .price(item.getPrice())
+      .price(item.getProductPrice())
       .build();
   }
 

@@ -28,9 +28,9 @@ public class OrderResponse {
     return OrderResponse.builder()
       .idx(order.getIdx())
       .totalPrice(order.getTotalPrice())
-      .registeredDateTime(order.getRegisteredDateTime())
+      .registeredDateTime(order.getOrderedAt())
 
-      .products(order.getOrderProducts().stream()
+      .products(order.getOrderItems().stream()
         .map(product -> ProductResponse.of(product.getProduct()))
         .collect(Collectors.toList())
       )

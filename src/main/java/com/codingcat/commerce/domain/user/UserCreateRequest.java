@@ -1,14 +1,12 @@
-package com.codingcat.commerce.dto;
+package com.codingcat.commerce.domain.user;
 
-import com.codingcat.commerce.domain.notice.Notice;
-import com.codingcat.commerce.domain.user.User;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AddUserRequest {
+public class UserCreateRequest {
   @NotBlank(message = "id값은 필수입니다.")
   private String idx;
 

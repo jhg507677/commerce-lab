@@ -1,12 +1,12 @@
 package com.codingcat.commerce.module.security;
 
-import static com.codingcat.commerce.module.model.ApiResponseUtil.sendApiResponseFailServer;
+import static com.codingcat.commerce.module.response.ApiResponseUtil.sendApiResponseFailServer;
 
 import com.codingcat.commerce.domain.user.User;
 import com.codingcat.commerce.domain.user.UserRepository;
 import com.codingcat.commerce.module.exception.CustomException;
-import com.codingcat.commerce.module.model.ApiResponseUtil;
-import com.codingcat.commerce.module.model.ApiResponseVo;
+import com.codingcat.commerce.module.response.ApiResponseUtil;
+import com.codingcat.commerce.module.response.ApiResponseVo;
 import com.codingcat.commerce.module.security.token.RefreshToken;
 import com.codingcat.commerce.module.security.token.RefreshTokenRepository;
 import com.codingcat.commerce.module.security.token.TokenProvider;

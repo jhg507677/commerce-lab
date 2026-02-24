@@ -1,9 +1,7 @@
-package com.codingcat.commerce.module.model;
+package com.codingcat.commerce.module.response;
 
 import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

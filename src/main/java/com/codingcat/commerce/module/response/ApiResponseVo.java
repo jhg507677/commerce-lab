@@ -1,7 +1,8 @@
-package com.codingcat.commerce.module.model;
+package com.codingcat.commerce.module.response;
 
 import static com.codingcat.commerce.module.model.ImportanceLevel.LOG_ONLY;
 
+import com.codingcat.commerce.module.model.ImportanceLevel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

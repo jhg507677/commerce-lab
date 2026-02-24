@@ -2,10 +2,10 @@ package com.codingcat.commerce.api.service.notice;
 
 import com.codingcat.commerce.domain.notice.Notice;
 import com.codingcat.commerce.domain.notice.NoticeRepository;
-import com.codingcat.commerce.dto.AddNoticeRequest;
-import com.codingcat.commerce.dto.UpdateNoticeRequest;
-import com.codingcat.commerce.module.model.ApiResponseUtil;
-import com.codingcat.commerce.module.model.ApiResponseVo;
+import com.codingcat.commerce.domain.notice.dto.NoticeCreateRequest;
+import com.codingcat.commerce.domain.notice.dto.NoticeUpdateRequest;
+import com.codingcat.commerce.module.response.ApiResponseUtil;
+import com.codingcat.commerce.module.response.ApiResponseVo;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class NoticeService {
   private final NoticeRepository noticeRepository;
 
-  public Notice save(AddNoticeRequest request){
+  public Notice save(NoticeCreateRequest request){
     return noticeRepository.save(request.toEntity());
   }
 
@@ -32,7 +32,7 @@ public class NoticeService {
 
   // @Transactional : 매칭한 메서드를 하나의 트랜잭션으로 묶는 역할
   @Transactional
-  public ResponseEntity<ApiResponseVo<?>> update(Long idx, UpdateNoticeRequest request) {
+  public ResponseEntity<ApiResponseVo<?>> update(Long idx, NoticeUpdateRequest request) {
     Notice notice = noticeRepository.findById(idx).orElse(null);
     if (notice == null) {
       return ApiResponseUtil.sendApiResponse(HttpStatus.NOT_FOUND, "sm.common.fail.invalid_id", "존재하지 않는 게시물입니다.", null, new Exception("존재하지 않는 게시물입니다."));

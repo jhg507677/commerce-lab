@@ -1,4 +1,4 @@
-package com.codingcat.commerce.dto;
+package com.codingcat.commerce.domain.notice.dto;
 
 import com.codingcat.commerce.domain.notice.Notice;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class UpdateNoticeRequest {
+public class NoticeCreateRequest {
   @NotBlank(message = "제목은 필수입니다.")
   private String title;
 

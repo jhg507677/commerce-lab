@@ -1,12 +1,11 @@
 package com.codingcat.commerce.api.service.user;
 
-import com.codingcat.commerce.api.controller.UserController.CreateAccessTokenRequest;
 import com.codingcat.commerce.domain.user.User;
 import com.codingcat.commerce.domain.user.UserRepository;
-import com.codingcat.commerce.dto.AddUserRequest;
+import com.codingcat.commerce.domain.user.UserCreateRequest;
 import com.codingcat.commerce.module.exception.CustomException;
-import com.codingcat.commerce.module.model.ApiResponseUtil;
-import com.codingcat.commerce.module.model.ApiResponseVo;
+import com.codingcat.commerce.module.response.ApiResponseUtil;
+import com.codingcat.commerce.module.response.ApiResponseVo;
 import com.codingcat.commerce.module.security.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CookieValue;
 
 @RequiredArgsConstructor
 @Service
@@ -23,7 +21,7 @@ public class UserService {
   private final PasswordEncoder passwordEncoder;
   private final AuthService authService;
 
-  public ResponseEntity<ApiResponseVo<?>> signUp(AddUserRequest request){
+  public ResponseEntity<ApiResponseVo<?>> signUp(UserCreateRequest request){
     // 비밀번호 암호화
     request.setPassword(passwordEncoder.encode(request.getPassword()));
     Long savedIdx = userRepository.save(request.toEntity()).getIdx();
@@ -33,7 +31,7 @@ public class UserService {
   /*로그인*/
   public ResponseEntity<ApiResponseVo<?>> login(
     HttpServletResponse response,
-    AddUserRequest request
+    UserCreateRequest request
   ) {
     // 아이디 검증
     User user = userRepository.findByUserId(request.toEntity()).orElse(null);

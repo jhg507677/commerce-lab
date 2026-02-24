@@ -50,7 +50,8 @@ public class Product {
   @JoinColumn(name="admin_id")
   private Admin admin;
 
-  private Integer price;
+  @Schema(description = "상품 가격")
+  private Integer productPrice;
 
   @Builder
   public Product(String name, String content){

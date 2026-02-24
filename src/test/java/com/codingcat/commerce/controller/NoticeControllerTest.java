@@ -10,8 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.codingcat.commerce.domain.notice.Notice;
 import com.codingcat.commerce.domain.notice.NoticeRepository;
-import com.codingcat.commerce.dto.AddNoticeRequest;
-import com.codingcat.commerce.dto.UpdateNoticeRequest;
+import com.codingcat.commerce.domain.notice.dto.NoticeCreateRequest;
+import com.codingcat.commerce.domain.notice.dto.NoticeUpdateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +47,7 @@ class NoticeControllerTest {
     final String url = "/api/articles";
     final String title = "title";
     final String content = "content";
-    final AddNoticeRequest request = new AddNoticeRequest(title, content);
+    final NoticeCreateRequest request = new NoticeCreateRequest(title, content);
 
     // 객채 -> JSON으로 역직렬화
     final String requestBody = objectMapper.writeValueAsString(request);
@@ -119,7 +119,7 @@ class NoticeControllerTest {
     Notice savedNotice = noticeRepository.save(notice);
     final String newTitle = "new title";
     final String newContent = "new content";
-    UpdateNoticeRequest request = new UpdateNoticeRequest(newTitle, newContent);
+    NoticeUpdateRequest request = new NoticeUpdateRequest(newTitle, newContent);
 
 
     // when

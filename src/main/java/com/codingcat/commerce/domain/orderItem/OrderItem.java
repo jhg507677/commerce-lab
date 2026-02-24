@@ -1,6 +1,6 @@
 package com.codingcat.commerce.domain.orderItem;
 
-import com.codingcat.commerce.domain.BaseEntity;
+import com.codingcat.commerce.module.model.BaseEntity;
 import com.codingcat.commerce.domain.order.Order;
 import com.codingcat.commerce.domain.product.Product;
 import io.swagger.v3.oas.annotations.media.Schema;

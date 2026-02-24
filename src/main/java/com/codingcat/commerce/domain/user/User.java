@@ -1,6 +1,6 @@
 package com.codingcat.commerce.domain.user;
 
-import com.codingcat.commerce.domain.BaseEntity;
+import com.codingcat.commerce.module.model.BaseEntity;
 import com.codingcat.commerce.domain.order.Order;
 import com.codingcat.commerce.module.model.ServiceType;
 import com.codingcat.commerce.module.security.AuthDto;
@@ -11,15 +11,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.validation.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLRestriction;
 
 @NoArgsConstructor
 @AllArgsConstructor

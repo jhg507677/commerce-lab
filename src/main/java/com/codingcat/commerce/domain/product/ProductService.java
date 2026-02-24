@@ -1,8 +1,5 @@
-package com.codingcat.commerce.api.service.product;
-import com.codingcat.commerce.api.service.product.dto.ProductResponse;
-import com.codingcat.commerce.domain.product.Product;
-import com.codingcat.commerce.domain.product.ProductRepository;
-import com.codingcat.commerce.domain.product.ProductSellingStatus;
+package com.codingcat.commerce.domain.product;
+import com.codingcat.commerce.domain.product.dto.ProductResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

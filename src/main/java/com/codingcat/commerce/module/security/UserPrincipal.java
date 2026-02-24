@@ -3,8 +3,6 @@ package com.codingcat.commerce.module.security;
 import com.codingcat.commerce.domain.user.User;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

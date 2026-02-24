@@ -3,7 +3,6 @@ package com.codingcat.commerce.module.security.token;
 import com.codingcat.commerce.domain.user.User;
 import com.codingcat.commerce.module.model.ServiceType;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;

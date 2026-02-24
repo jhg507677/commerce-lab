@@ -1,4 +1,4 @@
-package com.codingcat.commerce.api.service.order.dto;
+package com.codingcat.commerce.domain.order.dto;
 
 import java.util.List;
 import lombok.Builder;

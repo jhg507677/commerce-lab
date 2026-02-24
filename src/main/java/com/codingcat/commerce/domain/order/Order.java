@@ -1,6 +1,6 @@
 package com.codingcat.commerce.domain.order;
 
-import com.codingcat.commerce.domain.BaseEntity;
+import com.codingcat.commerce.module.model.BaseEntity;
 import com.codingcat.commerce.domain.orderItem.OrderItem;
 import com.codingcat.commerce.domain.product.Product;
 import com.codingcat.commerce.domain.user.User;

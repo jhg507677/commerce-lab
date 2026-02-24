@@ -1,6 +1,6 @@
-package com.codingcat.commerce.api.service.order.dto;
+package com.codingcat.commerce.domain.order.dto;
 
-import com.codingcat.commerce.api.service.product.dto.ProductResponse;
+import com.codingcat.commerce.domain.product.dto.ProductResponse;
 import com.codingcat.commerce.domain.order.Order;
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.codingcat.commerce.controller;
 
-import com.codingcat.commerce.api.service.notice.NoticeService;
+import com.codingcat.commerce.domain.notice.NoticeService;
 import com.codingcat.commerce.domain.notice.Notice;
 import com.codingcat.commerce.domain.notice.dto.NoticeCreateRequest;
 import com.codingcat.commerce.domain.notice.dto.NoticeResponse;

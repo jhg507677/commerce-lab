@@ -1,4 +1,4 @@
-package com.codingcat.commerce.domain;
+package com.codingcat.commerce.module.model;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

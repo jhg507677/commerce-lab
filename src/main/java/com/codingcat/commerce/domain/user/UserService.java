@@ -1,8 +1,5 @@
-package com.codingcat.commerce.api.service.user;
+package com.codingcat.commerce.domain.user;
 
-import com.codingcat.commerce.domain.user.User;
-import com.codingcat.commerce.domain.user.UserRepository;
-import com.codingcat.commerce.domain.user.UserCreateRequest;
 import com.codingcat.commerce.module.exception.CustomException;
 import com.codingcat.commerce.module.response.ApiResponseUtil;
 import com.codingcat.commerce.module.response.ApiResponseVo;

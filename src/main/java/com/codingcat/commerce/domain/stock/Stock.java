@@ -1,6 +1,6 @@
 package com.codingcat.commerce.domain.stock;
 
-import com.codingcat.commerce.domain.BaseEntity;
+import com.codingcat.commerce.module.model.BaseEntity;
 import com.codingcat.commerce.domain.product.Product;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

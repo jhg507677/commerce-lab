@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.codingcat.commerce.domain.user.User;
 import com.codingcat.commerce.domain.user.UserRepository;
 import com.codingcat.commerce.module.model.ServiceType;
-import com.codingcat.commerce.module.security.CustomUserDetailsService;
 import com.codingcat.commerce.module.security.UserPrincipal;
 import com.codingcat.commerce.module.security.token.TokenProvider.JWT_STATUS;
 import com.codingcat.commerce.module.security.token.TokenProvider.TokenResult;
@@ -13,14 +12,12 @@ import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Date;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @SpringBootTest
 class TokenProviderTest {

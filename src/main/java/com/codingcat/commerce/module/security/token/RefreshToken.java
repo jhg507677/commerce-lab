@@ -1,6 +1,6 @@
 package com.codingcat.commerce.module.security.token;
 
-import com.codingcat.commerce.domain.BaseEntity;
+import com.codingcat.commerce.module.model.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

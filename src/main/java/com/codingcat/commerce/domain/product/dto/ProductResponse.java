@@ -1,4 +1,4 @@
-package com.codingcat.commerce.api.service.product.dto;
+package com.codingcat.commerce.domain.product.dto;
 
 import com.codingcat.commerce.domain.product.Product;
 import com.codingcat.commerce.domain.product.ProductSellingStatus;

@@ -2,8 +2,8 @@ package com.codingcat.commerce.module.security.token;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.codingcat.commerce.domain.user.User;
-import com.codingcat.commerce.domain.user.UserRepository;
+import com.codingcat.commerce.service.user.User;
+import com.codingcat.commerce.service.user.UserRepository;
 import com.codingcat.commerce.module.model.ServiceType;
 import com.codingcat.commerce.module.security.UserPrincipal;
 import com.codingcat.commerce.module.security.token.TokenProvider.JWT_STATUS;

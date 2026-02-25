@@ -1,0 +1,25 @@
+package com.codingcat.commerce.service.notice.dto;
+
+import com.codingcat.commerce.service.notice.Notice;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+public class NoticeUpdateRequest {
+  @NotBlank(message = "제목은 필수입니다.")
+  private String title;
+
+  @NotBlank(message = "내용은 필수입니다.")
+  private String content;
+
+  public Notice toEntity(){
+    return Notice.builder()
+    .title(title)
+    .content(content)
+    .build();
+  }
+}

@@ -1,7 +1,7 @@
 package com.codingcat.commerce.controller;
 
-import com.codingcat.commerce.domain.user.UserService;
-import com.codingcat.commerce.domain.user.UserCreateRequest;
+import com.codingcat.commerce.service.user.UserService;
+import com.codingcat.commerce.service.user.UserCreateRequest;
 import com.codingcat.commerce.module.response.ApiResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

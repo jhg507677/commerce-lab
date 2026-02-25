@@ -1,5 +1,6 @@
 package com.codingcat.commerce.domain.product;
 
+import com.codingcat.commerce.service.product.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

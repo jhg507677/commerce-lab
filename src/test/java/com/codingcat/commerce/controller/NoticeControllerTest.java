@@ -8,10 +8,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.codingcat.commerce.domain.notice.Notice;
-import com.codingcat.commerce.domain.notice.NoticeRepository;
-import com.codingcat.commerce.domain.notice.dto.NoticeCreateRequest;
-import com.codingcat.commerce.domain.notice.dto.NoticeUpdateRequest;
+import com.codingcat.commerce.service.notice.Notice;
+import com.codingcat.commerce.service.notice.NoticeRepository;
+import com.codingcat.commerce.service.notice.dto.NoticeCreateRequest;
+import com.codingcat.commerce.service.notice.dto.NoticeUpdateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

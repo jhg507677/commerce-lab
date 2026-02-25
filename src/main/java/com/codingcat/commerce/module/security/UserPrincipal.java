@@ -1,6 +1,6 @@
 package com.codingcat.commerce.module.security;
 
-import com.codingcat.commerce.domain.user.User;
+import com.codingcat.commerce.service.user.User;
 import java.util.Collection;
 import java.util.List;
 import lombok.Getter;

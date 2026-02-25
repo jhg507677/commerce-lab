@@ -1,10 +1,10 @@
 package com.codingcat.commerce.controller;
 
-import com.codingcat.commerce.domain.notice.NoticeService;
-import com.codingcat.commerce.domain.notice.Notice;
-import com.codingcat.commerce.domain.notice.dto.NoticeCreateRequest;
-import com.codingcat.commerce.domain.notice.dto.NoticeResponse;
-import com.codingcat.commerce.domain.notice.dto.NoticeUpdateRequest;
+import com.codingcat.commerce.service.notice.NoticeService;
+import com.codingcat.commerce.service.notice.Notice;
+import com.codingcat.commerce.service.notice.dto.NoticeCreateRequest;
+import com.codingcat.commerce.service.notice.dto.NoticeResponse;
+import com.codingcat.commerce.service.notice.dto.NoticeUpdateRequest;
 import com.codingcat.commerce.module.response.ApiResponseUtil;
 import com.codingcat.commerce.module.response.ApiResponseVo;
 import io.swagger.v3.oas.annotations.Operation;

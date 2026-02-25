@@ -2,8 +2,8 @@ package com.codingcat.commerce.module.security;
 
 import static com.codingcat.commerce.module.response.ApiResponseUtil.sendApiResponseFailServer;
 
-import com.codingcat.commerce.domain.user.User;
-import com.codingcat.commerce.domain.user.UserRepository;
+import com.codingcat.commerce.service.user.User;
+import com.codingcat.commerce.service.user.UserRepository;
 import com.codingcat.commerce.module.exception.CustomException;
 import com.codingcat.commerce.module.response.ApiResponseUtil;
 import com.codingcat.commerce.module.response.ApiResponseVo;

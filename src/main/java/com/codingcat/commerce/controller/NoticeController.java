@@ -1,12 +1,12 @@
 package com.codingcat.commerce.controller;
 
-import com.codingcat.commerce.domain.notice.Notice;
-import com.codingcat.commerce.domain.notice.NoticeService;
-import com.codingcat.commerce.dto.AddNoticeRequest;
-import com.codingcat.commerce.dto.NoticeResponse;
-import com.codingcat.commerce.dto.UpdateNoticeRequest;
-import com.codingcat.commerce.module.model.ApiResponseUtil;
-import com.codingcat.commerce.module.model.ApiResponseVo;
+import com.codingcat.commerce.service.notice.NoticeService;
+import com.codingcat.commerce.service.notice.Notice;
+import com.codingcat.commerce.service.notice.dto.NoticeCreateRequest;
+import com.codingcat.commerce.service.notice.dto.NoticeResponse;
+import com.codingcat.commerce.service.notice.dto.NoticeUpdateRequest;
+import com.codingcat.commerce.module.response.ApiResponseUtil;
+import com.codingcat.commerce.module.response.ApiResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -38,10 +38,10 @@ public class NoticeController {
   )
   @PostMapping("/api/articles")
   public ResponseEntity<ApiResponseVo<?>> addNotice(
-    @Valid @RequestBody AddNoticeRequest addNoticeRequest
+    @Valid @RequestBody NoticeCreateRequest noticeCreateRequest
   ){
     try{
-      Notice savedNotice = noticeService.save(addNoticeRequest);
+      Notice savedNotice = noticeService.save(noticeCreateRequest);
       ApiResponseVo<?> response = ApiResponseVo.builder().status(HttpStatus.CREATED).code("sm.common.success.default").message("게시물 생성 완료").content(savedNotice).build();
       return ApiResponseUtil.sendApiResponse(response);
     }catch (Exception e){
@@ -67,13 +67,13 @@ public class NoticeController {
   }
 
   @Operation(summary = "게시물 목록 삭제", description = "")
-  @Parameters({@Parameter(name = "id", description = "삭제 공지사항 ID", required = true)})
-  @DeleteMapping("/api/articles/{id}")
+  @Parameters({@Parameter(name = "idx", description = "삭제 공지사항 ID", required = true)})
+  @DeleteMapping("/api/articles/{idx}")
   public ResponseEntity<ApiResponseVo<?>> deleteNotice(
-    @PathVariable(value = "id") long id
+    @PathVariable(value = "idx") long idx
   ){
     try{
-      noticeService.deleteById(id);
+      noticeService.deleteById(idx);
       return ApiResponseUtil.sendApiResponse(ApiResponseVo.ok());
     }catch (Exception e){
       return ApiResponseUtil.sendApiResponseFailServer(e);
@@ -81,12 +81,12 @@ public class NoticeController {
   }
 
   @Operation(summary = "게시물 수정", description = "")
-  @Parameters({@Parameter(name = "id", description = "삭제 공지사항 ID", required = true)})
-  @PutMapping("/api/articles/{id}")
+  @Parameters({@Parameter(name = "idx", description = "삭제 공지사항 ID", required = true)})
+  @PutMapping("/api/articles/{idx}")
   public ResponseEntity<ApiResponseVo<?>> updateNotice(
-    @PathVariable(value = "id") long id,
-    @Valid @RequestBody UpdateNoticeRequest request
+    @PathVariable(value = "idx") long idx,
+    @Valid @RequestBody NoticeUpdateRequest request
   ){
-    return noticeService.update(id, request);
+    return noticeService.update(idx, request);
   }
 }

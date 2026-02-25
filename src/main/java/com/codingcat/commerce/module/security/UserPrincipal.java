@@ -1,9 +1,8 @@
 package com.codingcat.commerce.module.security;
 
-import com.codingcat.commerce.domain.user.User;
+import com.codingcat.commerce.service.user.User;
 import java.util.Collection;
 import java.util.List;
-import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -59,6 +58,6 @@ public class UserPrincipal implements UserDetails {
 
   // 엔티티를 받아서 Principal 생성
   public static UserPrincipal from(User user) {
-    return new UserPrincipal(user.getId(), user.getPassword(), user.getRole());
+    return new UserPrincipal(user.getUserId(), user.getPassword(), user.getRole());
   }
 }

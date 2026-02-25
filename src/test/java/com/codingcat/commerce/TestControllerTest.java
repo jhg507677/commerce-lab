@@ -2,8 +2,8 @@ package com.codingcat.commerce;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-import com.codingcat.commerce.domain.user.User;
-import com.codingcat.commerce.domain.user.UserRepository;
+import com.codingcat.commerce.service.user.User;
+import com.codingcat.commerce.service.user.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -50,8 +50,8 @@ class TestControllerTest {
     final ResultActions result = mockMvc.perform(get(url).accept(MediaType.APPLICATION_JSON));
 
     // then
-    result.andExpect(jsonPath("$[3].id").value(user.getId()))
-      .andExpect(jsonPath("$[3].name").value(user.getName()));
+    result.andExpect(jsonPath("$[0].id").value(user.getUserId()))
+      .andExpect(jsonPath("$[0].name").value(user.getName()));
     ;
   }
 }

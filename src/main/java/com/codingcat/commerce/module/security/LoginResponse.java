@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Setter
 public class LoginResponse {
+  private Long userIdx;
   private String accessToken;
   private Instant accessTokenExpire;
-  private String refreshToken;
 }

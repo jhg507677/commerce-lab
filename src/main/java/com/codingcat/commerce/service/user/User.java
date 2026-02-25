@@ -1,0 +1,77 @@
+package com.codingcat.commerce.service.user;
+
+import com.codingcat.commerce.module.model.BaseEntity;
+import com.codingcat.commerce.service.order.Order;
+import com.codingcat.commerce.module.model.ServiceType;
+import com.codingcat.commerce.module.security.AuthDto;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Builder
+@Entity // 해당 객체를 JPA관리하는 엔티티로 지정, 즉 Customer 클래스와 실제 customer 테이블을 매핑, 이름을 다르게 하고 싶다면 name 속성 사용
+public class User extends BaseEntity {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "user_idx")
+  private Long idx;
+
+  @Column(name = "id", nullable = false, unique = true, length = 50)
+  private String userId;
+
+  @Column(nullable = false)
+  private String email;
+
+  @Column(nullable = false)
+  private String name;
+
+  @Column(nullable = false)
+  private String password;
+
+  @Column(nullable = true)
+  private String role;
+
+  private String status;
+
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  private List<Order> orders = new ArrayList<>();
+
+  /*
+  서비스코드에서 업데이트 기능을 사용할려면 서비스 메서드에 반드시 @Transactional을 붙여야함
+  */
+  public void changeName(String name){
+    this.name = name;
+  }
+
+
+  public static User createTestUser() {
+    User user = new User();
+    user.userId = "testId";
+    user.email = "test@test.com";
+    user.name = "테스트유저";
+    user.password = "password";
+    user.role = "USER";
+    return user;
+  }
+
+  public AuthDto toAuth(){
+    return AuthDto.builder()
+      .serviceType(ServiceType.USER)
+      .userId(userId)
+      .email(email)
+      .build();
+  }
+}

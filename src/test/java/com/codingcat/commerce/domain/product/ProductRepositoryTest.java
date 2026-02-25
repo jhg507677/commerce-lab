@@ -1,10 +1,10 @@
 package com.codingcat.commerce.domain.product;
 
+import com.codingcat.commerce.service.product.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 /*
 @SpringBootTest : 애플리케이션 전체 컨텍스트를 로딩하는 통합 테스트용 어노테이션
@@ -13,7 +13,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 @SpringBootTest
 //@DataJpaTest
 class ProductRepositoryTest {
-  @Autowired ProductRepository productRepository;
+  @Autowired
+  ProductRepository productRepository;
 
   @DisplayName("")
   @Test

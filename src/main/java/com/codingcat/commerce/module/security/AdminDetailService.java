@@ -1,9 +1,7 @@
 package com.codingcat.commerce.module.security;
 
-import com.codingcat.commerce.domain.admin.Admin;
-import com.codingcat.commerce.domain.admin.AdminRepository;
-import com.codingcat.commerce.domain.user.User;
-import com.codingcat.commerce.domain.user.UserRepository;
+import com.codingcat.commerce.service.admin.Admin;
+import com.codingcat.commerce.service.admin.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

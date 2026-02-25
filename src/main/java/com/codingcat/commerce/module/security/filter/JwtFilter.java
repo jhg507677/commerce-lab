@@ -50,7 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
       FilterChain filterChain
       ) throws ServletException, IOException {
     ServiceType SERVICE_TYPE;
-    Integer USER_IDX;
+    Long USER_IDX;
 
     // ***** 1. 토큰 가져오기
     Optional<String> token = getBearerTokenByHeader(request);
@@ -67,7 +67,7 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     // ***** 2. 토큰을 검증한다
-    JWT_STATUS jwtStatus = tokenProvider.validateJwt(token.get());
+    JWT_STATUS jwtStatus = tokenProvider.validateToken(token.get());
     if(jwtStatus.equals(JWT_STATUS.EXPIRED)) {
       log.error("API_AUTH_FAIL : 만료된 토큰입니다. servletPath : "+servletPath);
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -82,8 +82,8 @@ public class JwtFilter extends OncePerRequestFilter {
     
     // ***** 4. wserviceCode와 wuserIdx 정보를 토큰에서 꺼낸다
     try {
-      SERVICE_TYPE = tokenProvider.getServiceTypeByJwt(token.get());
-      USER_IDX = tokenProvider.getUserIdx(token.get());
+      SERVICE_TYPE = tokenProvider.getServiceTypeByToken(token.get());
+      USER_IDX = tokenProvider.getAuthIdxFromToken(token.get());
 
       if (SERVICE_TYPE == null || USER_IDX == null) {
         log.error("API_AUTH_FAIL : 토큰에 필수 정보가 누락됐습니다.");
@@ -109,7 +109,7 @@ public class JwtFilter extends OncePerRequestFilter {
           adminPrincipal.getAuthorities()
         );
       }else if(SERVICE_TYPE.equals(ServiceType.USER)) {
-        UserPrincipal userPrincipal = (UserPrincipal) adminDetailService.loadUserByUsername(USER_IDX.toString());
+        UserPrincipal userPrincipal = (UserPrincipal) userDetailsService.loadUserByUsername(USER_IDX.toString());
         authObject = new UsernamePasswordAuthenticationToken(
           userPrincipal,
           userPrincipal.getPassword(),

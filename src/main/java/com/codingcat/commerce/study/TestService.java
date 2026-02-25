@@ -1,7 +1,7 @@
 package com.codingcat.commerce.study;
 
-import com.codingcat.commerce.domain.user.User;
-import com.codingcat.commerce.domain.user.UserRepository;
+import com.codingcat.commerce.service.user.User;
+import com.codingcat.commerce.service.user.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

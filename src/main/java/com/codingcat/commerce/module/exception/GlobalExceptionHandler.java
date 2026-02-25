@@ -1,6 +1,6 @@
 package com.codingcat.commerce.module.exception;
 
-import com.codingcat.commerce.module.model.ApiResponseVo;
+import com.codingcat.commerce.module.response.ApiResponseVo;
 import io.swagger.v3.oas.annotations.Hidden;
 import java.nio.charset.StandardCharsets;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +22,19 @@ public class GlobalExceptionHandler {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8));
     return headers;
+  }
+
+  @ExceptionHandler(CustomException.class)
+  public ResponseEntity<ApiResponseVo<?>> handleCustomException(
+    CustomException custom
+  ) {
+    custom.printStackTrace(); // 로깅
+    ApiResponseVo<?> response = ApiResponseVo.builder()
+      .status(custom.getHttpStatus())
+      .code(custom.getCustomCode())
+      .message(custom.getMessage())
+      .build();
+    return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
   }
 
   /*** @Valid 검증 실패 시 처리*/
